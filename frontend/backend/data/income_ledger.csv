@@ -1,0 +1,8 @@
+worker_id,platform,amount,earned_on,tds_deducted
+W001,Zomato,4500,2025-04-01,45
+W001,Swiggy,5200,2025-04-03,52
+W001,Zomato,6100,2025-05-02,61
+W002,UrbanCompany,8000,2025-04-05,80
+W002,UrbanCompany,7500,2025-05-01,75
+W003,Ola,9000,2025-04-07,90
+W003,Uber,10000,2025-04-10,100

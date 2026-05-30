@@ -1,0 +1,4 @@
+worker_id,name,city,language,phone,pan,platforms
+W001,Ravi Kumar,Hyderabad,Telugu,+91 98480 12345,ABCPK1234R,"zomato,swiggy"
+W002,Priya Sharma,Bangalore,Hindi,+91 99000 22222,XYZPS9876K,urbancompany
+W003,Arjun Patel,Mumbai,Hindi,+91 98200 33333,MNOPP5555T,"ola,uber"
