@@ -9,34 +9,25 @@ PIP_NO_CACHE_DIR=1
 
 WORKDIR /app
 
-# System packages
-
 RUN apt-get update && apt-get install -y --no-install-recommends 
 curl 
 ca-certificates 
 tar 
 && rm -rf /var/lib/apt/lists/*
 
-# Install Coral CLI
-
 ARG CORAL_VERSION=0.3.0
+
 RUN curl -fsSL 
 https://github.com/withcoral/coral/releases/download/v${CORAL_VERSION}/coral-x86_64-unknown-linux-gnu.tar.gz 
 -o /tmp/coral.tar.gz && 
 tar -xzf /tmp/coral.tar.gz -C /tmp && 
 install -m 0755 /tmp/coral /usr/local/bin/coral
 
-# Python dependencies
-
 COPY backend/requirements.txt .
 RUN pip install -r requirements.txt
 
-# Project files
-
-COPY backend/ backend/
-COPY coral_sources/ coral_sources/
-
-# Coral source registration
+COPY backend/ ./backend/
+COPY coral_sources/ ./coral_sources/
 
 RUN coral source add --file coral_sources/gigproof.yaml || true
 RUN coral source add --file coral_sources/zomato.yaml || true
