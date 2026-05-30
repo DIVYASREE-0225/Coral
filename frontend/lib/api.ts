@@ -1,28 +1,25 @@
-// Base API URL (PRODUCTION SAFE)
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE!;
+const DEFAULT_API =
+  process.env.NEXT_PUBLIC_API_BASE || "https://coral-6j14.onrender.com";
 
-// Generic request handler
+export const API_BASE = DEFAULT_API;
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
-      ...(init?.headers ?? {}),
+      ...(init?.headers || {}),
     },
     cache: "no-store",
   });
 
   if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`${res.status} - ${errorText}`);
+    const text = await res.text();
+    throw new Error(text || "API Error");
   }
 
   return res.json() as Promise<T>;
 }
-
-/* ========================
-   TYPES
-======================== */
 
 export type Worker = {
   worker_id: string;
@@ -34,50 +31,33 @@ export type Worker = {
   platforms: string;
 };
 
-/* ========================
-   API METHODS
-======================== */
-
 export const api = {
-  // Workers
   workers: () => request<Worker[]>("/workers"),
   worker: (id: string) => request<any>(`/worker/${id}`),
-
-  // Income / Tax
   itr: (id: string) => request<any>(`/itr/${id}`),
   credit: (id: string) => request<any>(`/credit/${id}`),
-
-  // Data ingestion
   ingestion: (id: string) => request<any>(`/ingestion/${id}`),
 
-  // Certificate
   certificate: (id: string) =>
     request<any>(`/certificate/${id}`, {
       method: "POST",
     }),
 
-  // Voice agent
   voice: (worker_id: string, question: string, lang: string) =>
     request<any>("/voice", {
       method: "POST",
       body: JSON.stringify({ worker_id, question, lang }),
     }),
 
-  // SQL engine
   schemas: () => request<any[]>("/sql/schemas"),
-  examples: () =>
-    request<{ name: string; sql: string }[]>("/sql/examples"),
+  examples: () => request<any[]>("/sql/examples"),
 
   runSql: (sql: string) =>
-    request<{ rows: any[]; row_count: number }>("/sql/query", {
+    request<any>("/sql/query", {
       method: "POST",
       body: JSON.stringify({ sql }),
     }),
 };
-
-/* ========================
-   FORMATTER
-======================== */
 
 export const fmtINR = (n: number) =>
   new Intl.NumberFormat("en-IN", {
