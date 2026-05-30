@@ -1,0 +1,22 @@
+name: gigproof
+version: 0.1.0
+dsl_version: 3
+backend: jsonl
+
+tables:
+  - name: workers
+    description: Gig workers
+
+    source:
+      location: file:///C:/Users/Divya%20Sree/OneDrive/Desktop/coral/coral/backend/data/
+      glob: "workers.jsonl"
+
+    columns:
+      - name: worker_id
+        type: Utf8
+
+      - name: name
+        type: Utf8
+
+      - name: city
+        type: Utf8

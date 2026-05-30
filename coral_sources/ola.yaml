@@ -1,0 +1,25 @@
+name: ola
+version: 0.1.0
+dsl_version: 3
+backend: jsonl
+
+tables:
+  - name: settlements
+    description: Ola settlement data
+
+    source:
+      location: file:///C:/Users/Divya%20Sree/OneDrive/Desktop/coral/coral/backend/data/
+      glob: "ola_settlements.jsonl"
+
+    columns:
+      - name: settlement_id
+        type: Utf8
+
+      - name: driver_id
+        type: Utf8
+
+      - name: settlement_date
+        type: Utf8
+
+      - name: net_amount
+        type: Float64

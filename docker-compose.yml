@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gigproof-backend:dev
+    ports:
+      - "8000:8000"
+    environment:
+      GIGPROOF_LOG_LEVEL: INFO
+      GIGPROOF_LOG_JSON: "true"
+      GIGPROOF_SIGNING_KEY: ${GIGPROOF_SIGNING_KEY:-change-me-in-prod}
+    volumes:
+      # Mount mock data (or real ingested data) read-only.
+      - ./backend/data:/app/backend/data:ro
+      # Persist generated certificates outside the container.
+      - ./backend/assets:/app/backend/assets
+    restart: unless-stopped
+
+  # Optional: front the API with the Next.js dev server. Skip in CI.
+  # frontend:
+  #   build: ./frontend
+  #   ports: ["3000:3000"]
+  #   environment:
+  #     NEXT_PUBLIC_API_BASE: http://backend:8000
+  #   depends_on: [backend]

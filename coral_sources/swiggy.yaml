@@ -1,0 +1,25 @@
+name: swiggy
+version: 0.1.0
+dsl_version: 3
+backend: jsonl
+
+tables:
+  - name: payouts
+    description: Swiggy payout data
+
+    source:
+      location: file:///C:/Users/Divya%20Sree/OneDrive/Desktop/coral/coral/backend/data/
+      glob: "swiggy_payouts.jsonl"
+
+    columns:
+      - name: payout_id
+        type: Utf8
+
+      - name: de_id
+        type: Utf8
+
+      - name: payout_date
+        type: Utf8
+
+      - name: total
+        type: Float64

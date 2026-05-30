@@ -1,0 +1,25 @@
+name: uber
+version: 0.1.0
+dsl_version: 3
+backend: jsonl
+
+tables:
+  - name: weekly_statements
+    description: Uber earnings
+
+    source:
+      location: file:///C:/Users/Divya%20Sree/OneDrive/Desktop/coral/coral/backend/data/
+      glob: "uber_statements.jsonl"
+
+    columns:
+      - name: statement_id
+        type: Utf8
+
+      - name: partner_uuid
+        type: Utf8
+
+      - name: week_end
+        type: Utf8
+
+      - name: net_earnings
+        type: Float64

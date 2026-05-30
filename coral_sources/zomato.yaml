@@ -1,0 +1,41 @@
+
+
+name: zomato
+version: 0.1.0
+dsl_version: 3
+backend: file
+test_queries:
+  - SELECT * FROM zomato.payouts LIMIT 1
+tables:
+  - name: payouts
+    description: Weekly delivery-partner payouts from Zomato. One row per partner per settled week.
+    format: csv
+    source:
+      source:
+    location: file:///C:/Users/Divya%20Sree/OneDrive/Desktop/coral/coral/backend/data/
+    glob: "zomato_payouts.jsonl"
+    columns:
+      - name: payout_id
+        type: Utf8
+        description: Unique settlement ID issued by Zomato
+      - name: partner_id
+        type: Utf8
+        description: Delivery partner identifier (joins to workers.worker_id)
+      - name: week_ending
+        type: Timestamp
+        description: Last day of the settlement week
+      - name: orders
+        type: Int64
+        description: Number of completed delivery orders in the week
+      - name: gross_earnings
+        type: Float64
+        description: Base earnings before incentives and TDS
+      - name: incentives
+        type: Float64
+        description: Surge / streak / festival bonuses
+      - name: tds_deducted
+        type: Float64
+        description: 1% TDS deducted under Section 194O
+      - name: net_payout
+        type: Float64
+        description: Amount actually credited to the partner's bank account

@@ -1,0 +1,25 @@
+name: urbancompany
+version: 0.1.0
+dsl_version: 3
+backend: jsonl
+
+tables:
+  - name: jobs
+    description: UrbanCompany jobs
+
+    source:
+      location: file:///C:/Users/Divya%20Sree/OneDrive/Desktop/coral/coral/backend/data/
+      glob: "urbancompany_jobs.jsonl"
+
+    columns:
+      - name: job_id
+        type: Utf8
+
+      - name: professional_id
+        type: Utf8
+
+      - name: job_date
+        type: Utf8
+
+      - name: professional_payout
+        type: Float64

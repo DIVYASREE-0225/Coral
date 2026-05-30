@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+.venv/
+coralvenv/
+.env
+
+# FastAPI
+*.log
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+
+# Environment files
+.env.local
+.env.*
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+dist/
+build/
+
+# Assets
+*.pdf
+
+# AI / Claude files
+.claude/

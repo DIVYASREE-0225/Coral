@@ -1,0 +1,20 @@
+# Build artifacts
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+**/.coralvenv/
+**/.venv/
+**/node_modules/
+**/.next/
+**/.DS_Store
+
+# Local data
+backend/data/
+backend/assets/
+.git/
+.gitignore
+
+# Tests + dev files don't belong in the image
+backend/tests/
+README.md
+*.md
