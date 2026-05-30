@@ -5,7 +5,7 @@
 # Stage 2: install Python deps into a slim runtime.
 
 FROM debian:bookworm-slim AS coral-fetch
-ARG CORAL_VERSION=0.4.1
+ARG CORAL_VERSION=0.3.0
 ARG TARGETARCH
 RUN apt-get update && apt-get install -y --no-install-recommends \
         curl ca-certificates tar \
