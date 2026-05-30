@@ -1,23 +1,12 @@
-const DEFAULT_API =
-  process.env.NEXT_PUBLIC_API_BASE || "https://coral-6j14.onrender.com";
-
-export const API_BASE = DEFAULT_API;
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "/api";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init?.headers || {}),
-    },
+    headers: { "content-type": "application/json", ...(init?.headers ?? {}) },
     cache: "no-store",
   });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || "API Error");
-  }
-
+  if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
   return res.json() as Promise<T>;
 }
 
@@ -37,23 +26,17 @@ export const api = {
   itr: (id: string) => request<any>(`/itr/${id}`),
   credit: (id: string) => request<any>(`/credit/${id}`),
   ingestion: (id: string) => request<any>(`/ingestion/${id}`),
-
   certificate: (id: string) =>
-    request<any>(`/certificate/${id}`, {
-      method: "POST",
-    }),
-
+    request<any>(`/certificate/${id}`, { method: "POST" }),
   voice: (worker_id: string, question: string, lang: string) =>
     request<any>("/voice", {
       method: "POST",
       body: JSON.stringify({ worker_id, question, lang }),
     }),
-
   schemas: () => request<any[]>("/sql/schemas"),
-  examples: () => request<any[]>("/sql/examples"),
-
+  examples: () => request<{ name: string; sql: string }[]>("/sql/examples"),
   runSql: (sql: string) =>
-    request<any>("/sql/query", {
+    request<{ rows: any[]; row_count: number }>("/sql/query", {
       method: "POST",
       body: JSON.stringify({ sql }),
     }),
